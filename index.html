@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}NEXUS // Enter the Grid{% endblock %}
+{% block content %}
+<div class="card" style="text-align: center; padding: 4rem 2rem;">
+    <h1 class="glitch">NEXUS</h1>
+    <p style="font-size: 1.3rem; margin: 1.5rem 0;">B2B Networking Platform for the Connected Elite</p>
+    <p style="color: #aaa; max-width: 600px; margin: 0 auto 2rem;">Connect with professionals. Share deals. Secure communications. Premium access for high-value operators.</p>
+    {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.register') }}" class="btn">INITIALIZE ACCOUNT</a>
+        &nbsp;&nbsp;
+        <a href="{{ url_for('auth.login') }}" class="btn">AUTHENTICATE</a>
+    {% else %}
+        <a href="{{ url_for('main.dashboard') }}" class="btn">ENTER DASHBOARD</a>
+    {% endif %}
+</div>
+{% endblock %}

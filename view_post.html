@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} // NEXUS{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>{{ post.title }}</h1>
+    <p class="post-meta">Category: {{ post.category }} | by <a href="{{ url_for('main.profile', username=post.author.username) }}">{{ post.author.username }}</a> | {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <div style="margin: 1.5rem 0; white-space: pre-wrap;">{{ post.content }}</div>
+    {% if post.attachment %}
+        <p><a href="{{ url_for('static', filename='uploads/' + post.attachment) }}" target="_blank" class="btn" style="padding:0.4rem 0.8rem; font-size:0.9rem;">DOWNLOAD ATTACHMENT</a></p>
+    {% endif %}
+</div>
+
+<h2>REPLIES</h2>
+{% for reply in post.replies %}
+<div class="card">
+    <p class="post-meta">by <a href="{{ url_for('main.profile', username=reply.author.username) }}">{{ reply.author.username }}</a> | {{ reply.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <p style="white-space: pre-wrap;">{{ reply.content }}</p>
+</div>
+{% else %}
+<p>No replies yet.</p>
+{% endfor %}
+
+{% if current_user.is_authenticated %}
+<div class="card">
+    <h3>TRANSMIT REPLY</h3>
+    <form method="POST">
+        <textarea name="content" rows="4" required placeholder="Enter your response..."></textarea>
+        <button type="submit">SEND</button>
+    </form>
+</div>
+{% else %}
+<p><a href="{{ url_for('auth.login') }}">Authenticate</a> to reply.</p>
+{% endif %}
+{% endblock %}

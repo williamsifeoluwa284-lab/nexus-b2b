@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard // NEXUS{% endblock %}
+{% block content %}
+<h1 class="glitch">ADMIN CONTROL</h1>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin:2rem 0;">
+    <div class="card" style="text-align:center;">
+        <h3>{{ user_count }}</h3>
+        <p>Total Operators</p>
+    </div>
+    <div class="card" style="text-align:center;">
+        <h3>{{ post_count }}</h3>
+        <p>Transmissions</p>
+    </div>
+    <div class="card" style="text-align:center;">
+        <h3>{{ premium_count }}</h3>
+        <p>Premium</p>
+    </div>
+</div>
+<div style="display:flex; gap:1rem; flex-wrap:wrap;">
+    <a href="{{ url_for('admin.users') }}" class="btn">MANAGE USERS</a>
+    <a href="{{ url_for('admin.posts') }}" class="btn">MANAGE POSTS</a>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Premium Access // NEXUS{% endblock %}
+{% block content %}
+<div class="card" style="text-align: center; max-width: 600px; margin: 2rem auto;">
+    <h1 class="glitch">PREMIUM PROTOCOLS</h1>
+    {% if current_user.is_premium %}
+        <p>You already have full premium access.</p>
+        <a href="{{ url_for('main.dashboard') }}" class="btn">RETURN TO DASHBOARD</a>
+    {% else %}
+        <p style="margin: 1.5rem 0;">Unlock enhanced features: priority messaging, verified badge, exclusive deal channels, and higher visibility on the grid.</p>
+        <h2 style="color: var(--accent);">$49 / ONE-TIME</h2>
+        <form method="POST" action="{{ url_for('payments.checkout') }}">
+            <button type="submit" style="font-size: 1.2rem; padding: 1rem 2rem;">PAY WITH STRIPE</button>
+        </form>
+        <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">
+            Secure payment via Stripe. Set your STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, and STRIPE_PRICE_ID environment variables.
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

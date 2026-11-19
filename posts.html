@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Admin Posts // NEXUS{% endblock %}
+{% block content %}
+<h1>POST MANAGEMENT</h1>
+<a href="{{ url_for('admin.dashboard') }}" class="btn" style="margin-bottom:1rem;">← BACK</a>
+
+{% for post in posts %}
+<div class="card">
+    <h3><a href="{{ url_for('forum.view_post', post_id=post.id) }}">{{ post.title }}</a></h3>
+    <p class="post-meta">by {{ post.author.username }} | {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <form method="POST" action="{{ url_for('admin.delete_post', post_id=post.id) }}" style="margin-top:0.5rem;">
+        <button type="submit" style="border-color:#ff0044; color:#ff0044; padding:0.4rem 0.8rem; font-size:0.8rem;"
+                onclick="return confirm('Delete this post?')">DELETE</button>
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

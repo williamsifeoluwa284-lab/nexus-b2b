@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Login // NEXUS{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 2rem auto;">
+    <h2>AUTHENTICATE</h2>
+    <form method="POST">
+        <label>USERNAME</label>
+        <input type="text" name="username" required>
+        <label>PASSWORD</label>
+        <input type="password" name="password" required>
+        <button type="submit">CONNECT</button>
+    </form>
+    <p style="margin-top: 1rem;">No credentials? <a href="{{ url_for('auth.register') }}">Register</a></p>
+</div>
+{% endblock %}

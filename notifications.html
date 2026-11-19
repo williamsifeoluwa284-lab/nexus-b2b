@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Notifications // NEXUS{% endblock %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>NOTIFICATIONS</h1>
+    {% if notifications %}
+    <form method="POST" action="{{ url_for('notifications.clear_notifications') }}">
+        <button type="submit" style="border-color:#ff0044; color:#ff0044;">CLEAR ALL</button>
+    </form>
+    {% endif %}
+</div>
+
+{% for n in notifications %}
+<div class="card">
+    <p>{{ n.message }}</p>
+    <p class="post-meta">{{ n.created_at.strftime('%Y-%m-%d %H:%M') }}
+        {% if n.link %} | <a href="{{ n.link }}">View</a>{% endif %}
+    </p>
+</div>
+{% else %}
+<div class="card"><p>No notifications.</p></div>
+{% endfor %}
+{% endblock %}

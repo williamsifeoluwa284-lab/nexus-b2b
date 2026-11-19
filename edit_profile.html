@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile // NEXUS{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h2>EDIT PROFILE</h2>
+    <form method="POST">
+        <label>COMPANY / ORGANIZATION</label>
+        <input type="text" name="company" value="{{ current_user.company or '' }}">
+        <label>BIO</label>
+        <textarea name="bio" rows="5">{{ current_user.bio or '' }}</textarea>
+        <label>AVATAR (optional)</label>
+        <input type="file" name="avatar" accept="image/*">
+        {% if current_user.avatar %}
+            <p class="post-meta">Current avatar set.</p>
+        {% endif %}
+        <button type="submit">UPDATE</button>
+    </form>
+    <p style="margin-top:1rem;"><a href="{{ url_for('main.profile', username=current_user.username) }}">View public profile</a></p>
+</div>
+{% endblock %}

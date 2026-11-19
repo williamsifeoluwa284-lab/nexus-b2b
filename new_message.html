@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}New Message // NEXUS{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h2>ENCRYPTED TRANSMISSION</h2>
+    <form method="POST">
+        <label>RECIPIENT</label>
+        <select name="receiver_id" required>
+            {% for user in users %}
+                <option value="{{ user.id }}" {% if preselect and preselect|int == user.id %}selected{% endif %}>
+                    {{ user.username }} {% if user.company %}({{ user.company }}){% endif %}
+                </option>
+            {% endfor %}
+        </select>
+        <label>MESSAGE</label>
+        <textarea name="content" rows="6" required></textarea>
+        <button type="submit">TRANSMIT</button>
+    </form>
+</div>
+{% endblock %}

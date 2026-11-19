@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Inbox // NEXUS{% endblock %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>SECURE COMMS // INBOX</h1>
+    <a href="{{ url_for('messaging.new_message') }}" class="btn">NEW MESSAGE</a>
+</div>
+
+{% for msg in messages %}
+<div class="card">
+    <p class="post-meta">From: <strong>{{ msg.sender.username }}</strong> | {{ msg.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <p style="white-space: pre-wrap;">{{ msg.content }}</p>
+</div>
+{% else %}
+<div class="card"><p>No messages in the queue.</p></div>
+{% endfor %}
+{% endblock %}
