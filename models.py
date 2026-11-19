@@ -17,11 +17,6 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    posts = db.relationship('Post', backref='author', lazy=True)
-    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id', backref='sender', lazy=True)
-    messages_received = db.relationship('Message', foreign_keys='Message.receiver_id', backref='receiver', lazy=True)
-    notifications = db.relationship('Notification', backref='user', lazy=True, cascade='all, delete-orphan')
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -36,7 +31,6 @@ class Post(db.Model):
     attachment = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    replies = db.relationship('Reply', backref='post', lazy=True, cascade='all, delete-orphan')
 
 class Reply(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +38,6 @@ class Reply(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-    author = db.relationship('User', backref='replies')
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
