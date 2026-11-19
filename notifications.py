@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from models import Notification
-from app import db
+from models import db
 
 notifications = Blueprint('notifications', __name__)
 
