@@ -16,7 +16,7 @@ def register():
         company = request.form.get('company')
 
         if User.query.filter_by(username=username).first():
-            flash('Username already exists in the grid.', 'danger')
+            flash('Username already taken.', 'danger')
             return redirect(url_for('auth.register'))
         if User.query.filter_by(email=email).first():
             flash('Email already registered.', 'danger')
@@ -26,9 +26,8 @@ def register():
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
-        flash('Access granted. Welcome to the Network.', 'success')
-        login_user(user)
-        return redirect(url_for('main.dashboard'))
+        flash('Account created. Authenticate to proceed.', 'success')
+        return redirect(url_for('auth.login'))
     return render_template('register.html')
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -41,16 +40,14 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             login_user(user)
-            flash('Authentication successful. Connection established.', 'success')
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('main.dashboard'))
-        else:
-            flash('Invalid credentials. Access denied.', 'danger')
+            flash('Access granted.', 'success')
+            return redirect(url_for('main.dashboard'))
+        flash('Invalid credentials.', 'danger')
     return render_template('login.html')
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    flash('Connection terminated.', 'info')
+    flash('Session terminated.', 'info')
     return redirect(url_for('main.index'))
