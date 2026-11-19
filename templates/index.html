@@ -1,29 +1,42 @@
 {% extends "base.html" %}
 {% block title %}NEXUS // Business Networking Grid{% endblock %}
 {% block content %}
-<div style="text-align: center; padding: 3rem 0;">
-    <h1 class="glitch" data-text="NEXUS">NEXUS</h1>
-    <p style="font-size: 1.3rem; margin: 1.5rem 0; color: #ccc;">
-        BUSINESS NETWORKING // SECURE CHANNELS // DEAL FLOW
+<div style="text-align: center; padding: 4rem 1rem 3rem;">
+    <h1 class="glitch" style="font-size: 3.2rem; margin-bottom: 0.5rem;">NEXUS</h1>
+    <p style="font-size: 1.25rem; color: #aaa; max-width: 600px; margin: 0 auto 2rem; letter-spacing: 1px;">
+        Secure Business Networking & Deal Flow Platform
     </p>
-    <div style="margin-top: 2rem;">
+    <div style="margin-top: 1.5rem;">
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('main.dashboard') }}" class="btn">ENTER DASHBOARD</a>
         {% else %}
-            <a href="{{ url_for('auth.register') }}" class="btn">INITIALIZE ACCOUNT</a>
+            <a href="{{ url_for('auth.register') }}" class="btn">GET STARTED</a>
             &nbsp;&nbsp;
-            <a href="{{ url_for('auth.login') }}" class="btn">AUTHENTICATE</a>
+            <a href="{{ url_for('auth.login') }}" class="btn">SIGN IN</a>
         {% endif %}
     </div>
 </div>
 
-<div class="card" style="margin-top: 2rem;">
-    <h2>// SYSTEM OVERVIEW</h2>
-    <ul style="list-style: none; padding: 0;">
-        <li>> Secure operator profiles</li>
-        <li>> Encrypted direct messaging</li>
-        <li>> Partnership & deal discussions</li>
-        <li>> Premium access protocols</li>
-    </ul>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+    <div class="card" style="text-align: center;">
+        <h3>SECURE PROFILES</h3>
+        <p>Build verified business profiles and connect with trusted operators.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <h3>DIRECT MESSAGING</h3>
+        <p>Encrypted channels for private deal discussions and partnerships.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <h3>FORUM & DEALS</h3>
+        <p>Structured discussions for partnerships, investments, and opportunities.</p>
+    </div>
+</div>
+
+<div class="card" style="text-align: center; margin-top: 1rem;">
+    <h2>// READY TO CONNECT?</h2>
+    <p style="margin: 1rem 0 1.5rem; color: #aaa;">Join the network and start building real business relationships.</p>
+    {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.register') }}" class="btn">CREATE ACCOUNT</a>
+    {% endif %}
 </div>
 {% endblock %}
