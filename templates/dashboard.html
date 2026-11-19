@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Dashboard // NEXUS{% endblock %}
+{% block content %}
+<h1>DASHBOARD</h1>
+<p style="margin-bottom: 1.5rem; color: #aaa;">Welcome back, {{ current_user.username }}.</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+    <div class="card">
+        <h3>YOUR STATUS</h3>
+        <p><strong>Company:</strong> {{ current_user.company or 'Independent' }}</p>
+        <p><strong>Premium:</strong> {% if current_user.is_premium %}Active{% else %}Standard{% endif %}</p>
+        <p><strong>Unread Messages:</strong> {{ unread }}</p>
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('messaging.inbox') }}" class="btn">MESSAGES</a>
+            &nbsp;
+            <a href="{{ url_for('main.edit_profile') }}" class="btn">EDIT PROFILE</a>
+        </div>
+    </div>
+    <div class="card">
+        <h3>RECENT ACTIVITY</h3>
+        {% if recent_posts %}
+            {% for post in recent_posts %}
+                <p><a href="{{ url_for('forum.view_post', post_id=post.id) }}">{{ post.title }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p style="color: #666;">No recent posts yet.</p>
+        {% endif %}
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('forum.forum_home') }}" class="btn">VIEW FORUM</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
